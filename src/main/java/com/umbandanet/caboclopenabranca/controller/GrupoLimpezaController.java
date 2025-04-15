@@ -35,12 +35,12 @@ public class GrupoLimpezaController {
     }
     
     @PostMapping
-    public GrupoLimpeza createGrupoLimpeza(@RequestBody GrupoLimpeza grupoLimpeza) {
+    public GrupoLimpeza postGrupoLimpeza(@RequestBody GrupoLimpeza grupoLimpeza) {
         return grupoLimpezaServices.save(grupoLimpeza);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GrupoLimpeza> updateGrupoLimpeza(@PathVariable Long id, @RequestBody GrupoLimpeza grupoLimpezaDetails) {
+    public ResponseEntity<GrupoLimpeza> putGrupoLimpeza(@PathVariable Long id, @RequestBody GrupoLimpeza grupoLimpezaDetails) {
         Optional<GrupoLimpeza> grupoLimpeza = grupoLimpezaServices.findById(id);
         if (grupoLimpeza.isPresent()) {
             GrupoLimpeza grupoLimpezaToUpdate = grupoLimpeza.get();
@@ -53,7 +53,7 @@ public class GrupoLimpezaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduto(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteGrupoLimpeza(@PathVariable Long id) {
         grupoLimpezaServices.deleteById(id);
         return ResponseEntity.noContent().build();
     }

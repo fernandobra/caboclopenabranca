@@ -2,7 +2,10 @@ package com.umbandanet.caboclopenabranca.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.umbandanet.caboclopenabranca.dto.PessoaAniversarioDTO;
+import com.umbandanet.caboclopenabranca.dto.PessoaAniversarioDTOProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,4 +38,21 @@ public class PessoasServicesImpl implements PessoasServices {
          pessoasRepository.deleteById(id);
     }
 
+    @Override
+    public List<PessoaAniversarioDTO> buscarProximosAniversarios() {
+        List<PessoaAniversarioDTOProjection> projections = pessoasRepository.findProximosAniversarios();
+        return projections.stream()
+                .map(projection -> new PessoaAniversarioDTO(projection.getId(), projection.getNome(), projection.getMes(), projection.getDia()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean existsByLoginAndSenha(String login, String senha) {
+        return pessoasRepository.existsByLoginAndSenha(login, senha);
+    }
+
+    @Override
+    public Optional<Pessoas> validateByLoginAndSenha(String login, String senha) {
+        return pessoasRepository.validateByLoginAndSenha(login, senha);
+    }
 }

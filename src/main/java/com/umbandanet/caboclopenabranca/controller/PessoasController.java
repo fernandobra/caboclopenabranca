@@ -3,16 +3,10 @@ package com.umbandanet.caboclopenabranca.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.umbandanet.caboclopenabranca.dto.PessoaAniversarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.umbandanet.caboclopenabranca.model.Pessoas;
 import com.umbandanet.caboclopenabranca.service.PessoasServices;
@@ -68,6 +62,23 @@ public class PessoasController {
     public ResponseEntity<Void> deleteProduto(@PathVariable Long id) {
         pessoasServices.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/proximos-aniversarios")
+    public List<PessoaAniversarioDTO> getProximosAniversarios() {
+        return pessoasServices.buscarProximosAniversarios();
+    }
+
+    @GetMapping("/validar-usuario")
+    public ResponseEntity<Boolean> validarUsuario(@RequestParam String login, @RequestParam String senha) {
+        boolean isValid = pessoasServices.existsByLoginAndSenha(login, senha);
+        return ResponseEntity.ok(isValid);
+    }
+
+    @GetMapping("/validar-usuario-login-senha")
+    public Optional<Pessoas> validarUsuarioLoginSenha(@RequestParam String login, @RequestParam String senha) {
+        Optional<Pessoas> pessoas =  pessoasServices.validateByLoginAndSenha(login, senha);
+        return pessoas;
     }
 }
 
