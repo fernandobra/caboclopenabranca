@@ -3,18 +3,17 @@ package com.umbandanet.caboclopenabranca.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
+
 @Entity
+@Table(name = "datalimpeza")
 @Data
-public class GrupoPessoa {
+public class DataLimpeza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
-    @JoinColumn(name = "pessoa_id")
-    private Pessoas pessoa;
-
-    @ManyToOne
-    @JoinColumn(name = "grupoLimpeza_id")
+    @JoinColumn(name = "grupoLimpezaId")
     private GrupoLimpeza grupo;
+    private Date dataLimpeza;
 }
