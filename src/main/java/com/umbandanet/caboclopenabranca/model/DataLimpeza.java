@@ -12,8 +12,8 @@ public class DataLimpeza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "grupoLimpezaId")
-    private GrupoLimpeza grupo;
+    @Column(name = "grupoLimpezaId")
+    private Long grupoLimpezaId;
+    @Column(name = "dataLimpeza")
     private Date dataLimpeza;
 }
