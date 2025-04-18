@@ -2,7 +2,6 @@ package com.umbandanet.caboclopenabranca.controller;
 
 import com.umbandanet.caboclopenabranca.dto.DataLimpezaDTOProjection;
 import com.umbandanet.caboclopenabranca.model.DataLimpeza;
-import com.umbandanet.caboclopenabranca.model.Sessao;
 import com.umbandanet.caboclopenabranca.service.DataLimpezaServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/caboclopenabranca/datalimpeza")
 public class DataLimpezaController {
@@ -50,6 +50,7 @@ public class DataLimpezaController {
         dataLimpezaServices.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
 
     @GetMapping("/calendario")
     public  List<DataLimpezaDTOProjection> findDataLimpeza() {

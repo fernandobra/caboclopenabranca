@@ -3,7 +3,9 @@ package com.umbandanet.caboclopenabranca.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.umbandanet.caboclopenabranca.dto.LoginRequest;
 import com.umbandanet.caboclopenabranca.dto.PessoaAniversarioDTO;
+import com.umbandanet.caboclopenabranca.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +81,17 @@ public class PessoasController {
     public Optional<Pessoas> validarUsuarioLoginSenha(@RequestParam String login, @RequestParam String senha) {
         Optional<Pessoas> pessoas =  pessoasServices.validateByLoginAndSenha(login, senha);
         return pessoas;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        Optional<Pessoas> pessoas = pessoasServices.validateByLoginAndSenha(loginRequest.getUsername(), loginRequest.getPassword()) ;
+        if (pessoas.isPresent()) {
+            String token = JwtUtil.generateToken(loginRequest.getUsername());
+            return ResponseEntity.ok(token);
+        } else {
+            return ResponseEntity.status(401).body("Credenciais inválidas");
+        }
     }
 }
 
