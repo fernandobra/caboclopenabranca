@@ -14,5 +14,7 @@ public interface PessoasServices {
     List<PessoaAniversarioDTO> buscarProximosAniversarios();
     boolean existsByLoginAndSenha(String login, String senha);
     Optional<Pessoas> validateByLoginAndSenha(String login, String senha);
+    boolean existsByLogin(String login);
+    boolean existsByEmail(String email);
 }
 

@@ -2,11 +2,7 @@ package com.umbandanet.caboclopenabranca.model;
 
 import java.sql.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,4 +29,6 @@ public class Pessoas {
     private String email ; 
     private String login ;
     private String senha;
+    private String celular;
+    private String foto_usuario;
 }

@@ -6,13 +6,16 @@ import java.util.stream.Collectors;
 
 import com.umbandanet.caboclopenabranca.dto.PessoaAniversarioDTO;
 import com.umbandanet.caboclopenabranca.dto.PessoaAniversarioDTOProjection;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.umbandanet.caboclopenabranca.model.Pessoas;
 import com.umbandanet.caboclopenabranca.repository.PessoasRepository;
 import com.umbandanet.caboclopenabranca.service.PessoasServices;
+import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 public class PessoasServicesImpl implements PessoasServices {
 
@@ -28,6 +31,7 @@ public class PessoasServicesImpl implements PessoasServices {
         return pessoasRepository.findById(id);
     }
 
+    @Transactional
     @Override
     public Pessoas save(Pessoas pessoas) {
         return pessoasRepository.save(pessoas);
@@ -54,5 +58,15 @@ public class PessoasServicesImpl implements PessoasServices {
     @Override
     public Optional<Pessoas> validateByLoginAndSenha(String login, String senha) {
         return pessoasRepository.validateByLoginAndSenha(login, senha);
+    }
+
+    @Override
+    public boolean existsByLogin(String login) {
+        return pessoasRepository.existsByLogin(login) > 0;
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return pessoasRepository.existsByEmail(email) > 0;
     }
 }

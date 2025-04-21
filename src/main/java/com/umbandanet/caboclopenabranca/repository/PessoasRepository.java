@@ -4,6 +4,7 @@ import com.umbandanet.caboclopenabranca.dto.PessoaAniversarioDTO;
 import com.umbandanet.caboclopenabranca.dto.PessoaAniversarioDTOProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.umbandanet.caboclopenabranca.model.Pessoas;
@@ -19,13 +20,23 @@ public interface PessoasRepository extends JpaRepository<Pessoas, Long> {
             "ORDER BY mes, dia ASC ", nativeQuery = true)
     List<PessoaAniversarioDTOProjection> findProximosAniversarios();
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END " +
+    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN 1 ELSE 0 END " +
             "FROM Pessoas p " +
-            "WHERE (p.login = :login OR p.email = :login) AND p.senha = :senha")
+            "WHERE (p.login = :login OR p.email = :login)")
     boolean existsByLoginAndSenha(String login, String senha);
 
     @Query("SELECT  p  " +
             "FROM Pessoas p " +
             "WHERE (p.login = :login OR p.email = :login) AND p.senha = :senha")
     Optional<Pessoas> validateByLoginAndSenha(String login, String senha);
+
+    @Query(value = "SELECT COUNT(*) " +
+            "FROM Pessoa p " +
+            "WHERE p.login LIKE CONCAT('%', :login, '%')", nativeQuery = true)
+    Long existsByLogin(String login);
+
+    @Query(value = "SELECT COUNT(*) " +
+            "FROM Pessoa p " +
+            "WHERE LOWER(TRIM(p.email)) = LOWER(TRIM(:email)) ", nativeQuery = true)
+    Long existsByEmail(String email);
 }
