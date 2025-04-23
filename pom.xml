@@ -15,6 +15,7 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+	<packaging>war</packaging>
 	<dependencies>
 		<!-- Dependências Spring Boot -->
 		<dependency>
@@ -33,6 +34,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Conector MySQL -->
@@ -92,6 +99,10 @@
 <!--					<mainClass>com.umbandanet.caboclopenabranca.CaboclopenabrancaApplication</mainClass>-->
 <!--				</configuration>-->
 <!--			</plugin>-->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven3-plugin</artifactId>
