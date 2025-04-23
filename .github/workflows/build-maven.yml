@@ -34,7 +34,7 @@ jobs:
       env: 
         SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
         SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
-      run: mvn cargo:redeploy
+      run: mvn -X cargo:redeploy
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph

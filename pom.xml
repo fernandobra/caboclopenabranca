@@ -118,10 +118,10 @@
 						<properties>
 							<cargo.hostname>ferna5184.c34.integrator.host</cargo.hostname>
 							<cargo.servelet.port>443</cargo.servelet.port>
-							<cargo.protocol>http</cargo.protocol>
-							<cargo.tomcat.manager.url>http://15.235.55.109:20221/manager/html</cargo.tomcat.manager.url>
-							<cargo.remote.username>ferna5184</cargo.remote.username>
-							<cargo.remote.password>Rafael2008@</cargo.remote.password>
+							<cargo.protocol>https</cargo.protocol>
+							<cargo.tomcat.manager.url>https://15.235.55.109:20221/manager/text</cargo.tomcat.manager.url>
+							<cargo.remote.username>${env.SERVER_USERNAME}</cargo.remote.username>
+							<cargo.remote.password>${env.SERVER_PASSWORD}</cargo.remote.password>
 						</properties>
 					</configuration>
 				</configuration>
