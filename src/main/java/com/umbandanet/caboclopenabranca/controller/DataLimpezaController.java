@@ -37,8 +37,8 @@ public class DataLimpezaController {
         Optional<DataLimpeza> dataLimpeza = dataLimpezaServices.findById(id);
         if (dataLimpeza.isPresent()) {
             DataLimpeza dataLimpezaToUpdate = dataLimpeza.get();
-            dataLimpezaToUpdate.setDataLimpeza(dataLimpezaDetails.getDataLimpeza());
-            dataLimpezaToUpdate.setGrupoLimpezaId(dataLimpezaDetails.getGrupoLimpezaId());
+            dataLimpezaToUpdate.setData_limpeza(dataLimpezaDetails.getData_limpeza());
+            dataLimpezaToUpdate.setGrupo_limpeza_id(dataLimpezaDetails.getGrupo_limpeza_id());
             return ResponseEntity.ok(dataLimpezaServices.save(dataLimpezaToUpdate));
         } else {
             return ResponseEntity.notFound().build();

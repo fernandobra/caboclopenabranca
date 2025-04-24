@@ -17,14 +17,7 @@ public class Pessoas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
     private String nome ;
-    private String cpf ;
-    private Date dataNascimento;
-    private String endereco;
-    private String numero ; 
-    private String complemento; 
-    private String bairro; 
-    private String cidade; 
-    private String estado; 
+    private Date data_nascimento;
     private String status ; 
     private String email ; 
     private String login ;

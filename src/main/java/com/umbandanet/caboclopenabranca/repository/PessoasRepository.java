@@ -14,9 +14,9 @@ import java.util.Optional;
 
 @Repository
 public interface PessoasRepository extends JpaRepository<Pessoas, Long> {
-    @Query(value = "SELECT p.id AS id, p.nome AS nome, MONTHNAME(p.dataNascimento) AS mes, DAY(p.dataNascimento) AS dia " +
+    @Query(value = "SELECT p.id AS id, p.nome AS nome, MONTHNAME(p.data_nascimento) AS mes, DAY(p.data_nascimento) AS dia " +
             "FROM pessoa p " +
-            "WHERE MONTH(p.dataNascimento) IN (MONTH(CURDATE()), MONTH(CURDATE() + INTERVAL 1 MONTH)) " +
+            "WHERE MONTH(p.data_nascimento) IN (MONTH(CURDATE()), MONTH(CURDATE() + INTERVAL 1 MONTH)) " +
             "ORDER BY mes, dia ASC ", nativeQuery = true)
     List<PessoaAniversarioDTOProjection> findProximosAniversarios();
 
@@ -31,12 +31,12 @@ public interface PessoasRepository extends JpaRepository<Pessoas, Long> {
     Optional<Pessoas> validateByLoginAndSenha(String login, String senha);
 
     @Query(value = "SELECT COUNT(*) " +
-            "FROM Pessoa p " +
+            "FROM pessoa p " +
             "WHERE p.login LIKE CONCAT('%', :login, '%')", nativeQuery = true)
     Long existsByLogin(String login);
 
     @Query(value = "SELECT COUNT(*) " +
-            "FROM Pessoa p " +
+            "FROM pessoa p " +
             "WHERE LOWER(TRIM(p.email)) = LOWER(TRIM(:email)) ", nativeQuery = true)
     Long existsByEmail(String email);
 }

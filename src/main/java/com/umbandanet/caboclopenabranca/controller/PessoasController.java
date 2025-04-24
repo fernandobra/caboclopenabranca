@@ -45,17 +45,10 @@ public class PessoasController {
         Optional<Pessoas> pessoas = pessoasServices.findById(id);
         if (pessoas.isPresent()) {
             Pessoas pessoasToUpdate = pessoas.get();
-            pessoasToUpdate.setBairro(pessoasDetails.getBairro());
-            pessoasToUpdate.setCidade(pessoasDetails.getCidade());
-            pessoasToUpdate.setComplemento(pessoasDetails.getComplemento());
-            pessoasToUpdate.setCpf(pessoasDetails.getCpf());
-            pessoasToUpdate.setDataNascimento(pessoasDetails.getDataNascimento());
+            pessoasToUpdate.setData_nascimento(pessoasDetails.getData_nascimento());
             pessoasToUpdate.setEmail(pessoasDetails.getEmail());
-            pessoasToUpdate.setEndereco(pessoasDetails.getEndereco());
-            pessoasToUpdate.setEstado(pessoasDetails.getEstado());
             pessoasToUpdate.setLogin(pessoasDetails.getLogin());
             pessoasToUpdate.setNome(pessoasDetails.getNome());
-            pessoasToUpdate.setNumero(pessoasDetails.getNumero());
             pessoasToUpdate.setSenha(pessoasDetails.getSenha());
             pessoasToUpdate.setCelular(pessoasDetails.getCelular());
             pessoasToUpdate.setFoto_usuario(pessoasDetails.getFoto_usuario());

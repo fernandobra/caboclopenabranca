@@ -1,11 +1,8 @@
 package com.umbandanet.caboclopenabranca.controller;
 
 import com.umbandanet.caboclopenabranca.dto.GrupoPessoaDTO;
-import com.umbandanet.caboclopenabranca.dto.PessoaAniversarioDTO;
 import com.umbandanet.caboclopenabranca.model.GrupoPessoa;
-import com.umbandanet.caboclopenabranca.model.Pessoas;
 import com.umbandanet.caboclopenabranca.service.GrupoPessoasServices;
-import com.umbandanet.caboclopenabranca.service.PessoasServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +38,7 @@ public class GrupoPessoasController {
         if (grupoPessoa.isPresent()) {
             GrupoPessoa grupoPessoaToUpdate = grupoPessoa.get();
             grupoPessoaToUpdate.setPessoa_id(grupoPessoaDetails.getPessoa_id());
-            grupoPessoaToUpdate.setGrupoLimpeza_id(grupoPessoaDetails.getGrupoLimpeza_id());
+            grupoPessoaToUpdate.setGrupo_limpeza_id(grupoPessoaDetails.getGrupo_limpeza_id());
             return ResponseEntity.ok(grupoPessoasServices.save(grupoPessoaToUpdate));
         } else {
             return ResponseEntity.notFound().build();

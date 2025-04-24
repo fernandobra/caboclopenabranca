@@ -14,9 +14,9 @@ import java.util.Optional;
 @Repository
 public interface GrupoPessoasRepository extends JpaRepository<GrupoPessoa, Long> {
     @Query(value =  "SELECT p.nome AS nome, gl.grupo AS grupo " +
-            "FROM db_caboclo.grupopessoa gp " +
-            "LEFT JOIN db_caboclo.pessoa p ON p.id = gp.pessoa_id " +
-            "LEFT JOIN db_caboclo.grupo_limpeza gl ON gl.id = gp.grupoLimpeza_id " +
+            "FROM grupo_pessoa gp " +
+            "LEFT JOIN pessoa p ON p.id = gp.pessoa_id " +
+            "LEFT JOIN grupo_limpeza gl ON gl.id = gp.grupo_limpeza_id " +
             "ORDER BY gl.grupo, p.nome ASC ",  nativeQuery = true)
     List<GrupoPessoaDTO> findGrupoPessoas();
 }
