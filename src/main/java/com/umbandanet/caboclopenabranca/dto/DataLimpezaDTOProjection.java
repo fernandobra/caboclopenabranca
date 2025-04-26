@@ -4,7 +4,7 @@ import java.util.Date;
 
 public interface DataLimpezaDTOProjection {
     Long getId();
-    Date getDataLimpeza();
+    Date getData_limpeza();
     String getNome();
     String getGrupo();
 }
