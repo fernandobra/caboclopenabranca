@@ -16,7 +16,7 @@ import java.util.Optional;
 public interface PessoasRepository extends JpaRepository<Pessoas, Long> {
     @Query(value = "SELECT p.id AS id, p.nome AS nome, MONTHNAME(p.data_nascimento) AS mes, DAY(p.data_nascimento) AS dia " +
             "FROM pessoa p " +
-            "WHERE MONTH(p.data_nascimento) IN (MONTH(CURDATE()), MONTH(CURDATE() + INTERVAL 1 MONTH)) " +
+            "WHERE p.data_nascimento is not null " +
             "ORDER BY mes, dia ASC ", nativeQuery = true)
     List<PessoaAniversarioDTOProjection> findProximosAniversarios();
 
