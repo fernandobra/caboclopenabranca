@@ -17,7 +17,7 @@ public interface PessoasRepository extends JpaRepository<Pessoas, Long> {
     @Query(value = "SELECT p.id AS id, p.nome AS nome, MONTHNAME(p.data_nascimento) AS mes, DAY(p.data_nascimento) AS dia " +
             "FROM pessoa p " +
             "WHERE p.data_nascimento is not null " +
-            "ORDER BY mes, dia ASC ", nativeQuery = true)
+            "ORDER BY MONTH(p.data_nascimento), DAY(p.data_nascimento) ASC ", nativeQuery = true)
     List<PessoaAniversarioDTOProjection> findProximosAniversarios();
 
     @Query("SELECT CASE WHEN COUNT(p) > 0 THEN 1 ELSE 0 END " +
