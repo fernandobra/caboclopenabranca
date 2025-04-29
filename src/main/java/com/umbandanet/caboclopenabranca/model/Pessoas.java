@@ -33,4 +33,5 @@ public class Pessoas {
     private String email ; 
     private String login ;
     private String senha;
+    private String token;
 }
