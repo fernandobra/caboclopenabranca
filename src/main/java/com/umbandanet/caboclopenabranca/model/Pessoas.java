@@ -1,12 +1,7 @@
 package com.umbandanet.caboclopenabranca.model;
 
-import java.sql.Date;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,14 +16,8 @@ public class Pessoas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
     private String nome ;
-    private String cpf ;
-    private Date dataNascimento;
-    private String endereco;
-    private String numero ; 
-    private String complemento; 
-    private String bairro; 
-    private String cidade; 
-    private String estado; 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+    private java.sql.Date data_nascimento;
     private String status ; 
     private String email ; 
     private String login ;

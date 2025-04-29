@@ -13,13 +13,13 @@ import java.util.Optional;
 
 @Repository
 public interface DataLimpezaRepository extends JpaRepository<DataLimpeza, Long> {
-    @Query(value = "SELECT d.id, d.dataLimpeza, p.nome, gl.grupo " +
-            "FROM DataLimpeza d " +
-            "JOIN Grupo_Limpeza gl ON d.grupoLimpezaId = gl.id " +
-            "JOIN GrupoPessoa gp ON gl.id = gp.grupoLimpeza_id " +
-            "JOIN Pessoa p ON gp.pessoa_id = p.id " +
-            "WHERE d.dataLimpeza >= CURRENT_DATE() " +
-            "ORDER BY d.dataLimpeza , p.nome ASC",
+    @Query(value = "SELECT d.id, d.data_limpeza , p.nome, gl.grupo " +
+            "FROM data_limpeza d " +
+            "JOIN grupo_limpeza gl ON d.grupo_limpeza_id = gl.id " +
+            "JOIN grupo_pessoa gp ON gl.id = gp.grupo_limpeza_id " +
+            "JOIN pessoa p ON gp.pessoa_id = p.id " +
+            "WHERE d.data_limpeza >= CURRENT_DATE() " +
+            "ORDER BY d.data_limpeza , p.nome ASC",
             nativeQuery = true)
     List<DataLimpezaDTOProjection> findCalendarioLimpeza();
 

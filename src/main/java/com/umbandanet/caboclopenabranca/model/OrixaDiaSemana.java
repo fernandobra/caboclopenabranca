@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "orixadiasemana")
+@Table(name = "orixa_dia_semana")
 public class OrixaDiaSemana {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
