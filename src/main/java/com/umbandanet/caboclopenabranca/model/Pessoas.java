@@ -18,9 +18,11 @@ public class Pessoas {
     private String nome ;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private java.sql.Date data_nascimento;
-    private String status ; 
-    private String email ; 
+    private String status ;
+    private String email ;
     private String login ;
     private String senha;
+    private String celular;
+    private String foto_usuario;
     private String token;
 }

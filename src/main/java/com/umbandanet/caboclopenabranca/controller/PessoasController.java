@@ -85,12 +85,12 @@ public class PessoasController {
         log.info("validarUsuarioLoginSenha -> LoginRequest -> getPassword: " + loginRequest.getPassword());
 
         return pessoasServices.validateByLoginAndSenha(
-                loginRequest.getUsername(),
-                loginRequest.getPassword()
-//                CryptoUtil.decrypt(loginRequest.getUsername(),
-//                        loginRequest.getInformationFront().trim()),
-//                CryptoUtil.decrypt(loginRequest.getPassword(),
-//                        loginRequest.getInformationFront().trim())
+//                loginRequest.getUsername(),
+//                loginRequest.getPassword()
+                CryptoUtil.decrypt(loginRequest.getUsername(),
+                        loginRequest.getInformationFront().trim()),
+                CryptoUtil.decrypt(loginRequest.getPassword(),
+                        loginRequest.getInformationFront().trim())
         );
 
     }
@@ -102,12 +102,12 @@ public class PessoasController {
         log.info("login -> LoginRequest -> getUsername: " + loginRequest.getUsername());
         log.info("login -> LoginRequest -> getPassword: " + loginRequest.getPassword());
         Optional<Pessoas> pessoas = pessoasServices.validateByLoginAndSenha(
-                loginRequest.getUsername(),
-                loginRequest.getPassword()
-//                CryptoUtil.decrypt(loginRequest.getUsername(),
-//                        loginRequest.getInformationFront().trim()),
-//                CryptoUtil.decrypt(loginRequest.getPassword(),
-//                        loginRequest.getInformationFront().trim())
+//                loginRequest.getUsername(),
+//                loginRequest.getPassword()
+                CryptoUtil.decrypt(loginRequest.getUsername(),
+                        loginRequest.getInformationFront().trim()),
+                CryptoUtil.decrypt(loginRequest.getPassword(),
+                        loginRequest.getInformationFront().trim())
         );
 
         if (pessoas.isPresent()) {
