@@ -17,10 +17,12 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,
-                                "/api/caboclopenabranca/pessoas",
+                                "/api/caboclopenabranca/pessoas/**",
                                 "/api/caboclopenabranca/pessoas/login",
                                 "/api/caboclopenabranca/pessoas/login/exists",
                                 "/api/caboclopenabranca/pessoas/email/exists",
+                                "/api/caboclopenabranca/password-recovery/request",
+                                "/api/caboclopenabranca/password-recovery/reset",
                                 "/api/caboclopenabranca/auth/refresh").permitAll()
                         .requestMatchers("/api/caboclopenabranca/pessoas/login/exists").permitAll()
                         .requestMatchers("/api/caboclopenabranca/pessoas/email/exists").permitAll()

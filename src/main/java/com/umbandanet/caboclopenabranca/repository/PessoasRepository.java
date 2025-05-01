@@ -41,8 +41,8 @@ public interface PessoasRepository extends JpaRepository<Pessoas, Long> {
 
     @Query("SELECT  p  " +
             "FROM Pessoas p " +
-            "WHERE p.email = :login ")
-    Optional<Pessoas> findByEmail(String mail);
+            "WHERE p.email = :email ")
+    Optional<Pessoas> findByEmail(String email);
 
     @Query("SELECT  p  " +
             "FROM Pessoas p " +
