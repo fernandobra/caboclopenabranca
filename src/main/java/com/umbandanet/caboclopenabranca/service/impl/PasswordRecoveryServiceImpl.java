@@ -43,7 +43,7 @@ public class PasswordRecoveryServiceImpl implements PasswordRecoveryService {
             PasswordRecoveryOtp passwordRecoveryOtp = new PasswordRecoveryOtp();
             passwordRecoveryOtp.setEmail(email);
             passwordRecoveryOtp.setOtpCode(otp);
-            LocalDateTime agora = LocalDateTime.now();
+            LocalDateTime agora = LocalDateTime.now().plusMinutes(2); // Define a expiração para 2 minutos
             passwordRecoveryOtp.setExpiresAt(agora);
 
             this.save(passwordRecoveryOtp); // Salva o OTP no banco de dados
@@ -59,25 +59,25 @@ public class PasswordRecoveryServiceImpl implements PasswordRecoveryService {
     }
 
     @Override
-    public void resetPassword(String token, String newPassword) {
+    public void resetPassword(String email, String newPassword) {
         // Aqui você deve validar o token (ex.: buscar no banco ou cache)
         // e associá-lo ao usuário correto.
 
         // Após validar o token, atualize a senha do usuário:
-        Optional<Pessoas> pessoa = pessoasRepository.findByToken(token); // Exemplo
+        Optional<Pessoas> pessoa = pessoasRepository.findByEmail(email); // Exemplo
         if (pessoa.isPresent()) {
             Pessoas user = pessoa.get();
             user.setSenha(newPassword); // Atualize a senha
             pessoasRepository.save(user); // Salve no banco
         } else {
-            throw new IllegalArgumentException("Token inválido ou expirado.");
+            throw new IllegalArgumentException("Usuário invalido.");
         }
     }
 
     @Override
     public PasswordRecoveryOtp verifyOtp(String email, String otpCode) {
         return passwordRecoveryOtpRepository
-                .findByEmailAndOtpCode(email, otpCode);
+                .findPassawordRecovery(email, otpCode);
     }
 
     @Transactional
@@ -100,7 +100,7 @@ public class PasswordRecoveryServiceImpl implements PasswordRecoveryService {
             PasswordRecoveryOtp newOtp = new PasswordRecoveryOtp();
             newOtp.setEmail(otpParmeter.getEmail());
             newOtp.setOtpCode(otpParmeter.getOtpCode());
-            newOtp.setExpiresAt(LocalDateTime.now());
+            newOtp.setExpiresAt(otpParmeter.getExpiresAt());
             passwordRecoveryOtpRepository.save(newOtp);
         }
     }

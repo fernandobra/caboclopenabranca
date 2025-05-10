@@ -24,22 +24,22 @@ public class PasswordRecoveryController {
     @PostMapping("/request")
     public ResponseEntity<String> requestPasswordRecovery(@RequestBody PasswordRecoveryRequest request) {
         String token = passwordRecoveryService.initiatePasswordRecovery(request.getEmail());
-        return ResponseEntity.ok("Token enviado para o e-mail: " + request.getEmail());
+        return ResponseEntity.ok("Token");
     }
 
     @PostMapping("/reset")
-    public ResponseEntity<String> resetPassword(@RequestParam String token, @RequestParam String newPassword) {
-        passwordRecoveryService.resetPassword(token, newPassword);
-        return ResponseEntity.ok("Senha redefinida com sucesso.");
+    public ResponseEntity<String> resetPassword(@RequestParam String email, @RequestParam String newPassword) {
+        passwordRecoveryService.resetPassword(email, newPassword);
+        return ResponseEntity.ok("Sucesso.");
     }
 
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOtp(@RequestBody OtpVerificationRequest request) {
         PasswordRecoveryOtp otp = passwordRecoveryService.verifyOtp(request.getEmail(), request.getOtp_code());
-        if (otp != null && !otp.getUsed() && otp.getExpiresAt().isAfter(LocalDateTime.now())) {
+        if (otp != null && (otp.getUsed() == null || !otp.getUsed()) && otp.getExpiresAt().isAfter(LocalDateTime.now())) {
             otp.setUsed(true);
             passwordRecoveryService.save(otp);
-            return ResponseEntity.ok("Código verificado com sucesso.");
+            return ResponseEntity.ok("Sucesso.");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Código inválido ou expirado.");
     }
@@ -47,6 +47,6 @@ public class PasswordRecoveryController {
     @PostMapping
     public ResponseEntity<String> savePasswordRecoveryOtp(@RequestBody PasswordRecoveryOtp passwordRecoveryOtp) {
         passwordRecoveryService.save(passwordRecoveryOtp);
-        return ResponseEntity.ok("Dadsos de recuperação de senha criados com sucesso.");
+        return ResponseEntity.ok("Dados de recuperação de senha criados com sucesso.");
     }
 }
