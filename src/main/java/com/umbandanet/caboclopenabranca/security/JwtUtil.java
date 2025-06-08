@@ -55,7 +55,7 @@ public class JwtUtil {
 
     public static String validateExpiredToken(String token) {
         try {
-            token = token.substring(24).replace("\"", "").replace(":", "");
+           // token = token.substring(24).replace("\"", "").replace(":", "");
             System.out.println("Token recebido - validateExpiredToken: " + token);
 
             Claims claims = Jwts.parserBuilder()
