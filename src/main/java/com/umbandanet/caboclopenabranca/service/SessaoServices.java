@@ -10,4 +10,5 @@ public interface SessaoServices {
     Optional<Sessao> findById(Long id);
     Sessao save(Sessao sessao);
     void deleteById(Long id);
+    List<Sessao> findAllRegister();
 }
