@@ -19,7 +19,7 @@ public class SessaoServicesImpl implements SessaoServices {
 
     @Override
     public List<Sessao> findAll() {
-        return sessaoRepository.findAll();
+        return sessaoRepository.findAllByOrderByDataAsc();
     }
 
     @Override
