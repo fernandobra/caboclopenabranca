@@ -16,7 +16,8 @@ public interface SessaoRepository extends JpaRepository<Sessao, Long> {
 
     @Query("SELECT  s  " +
             "FROM Sessao s " +
-            "WHERE s.data >= :data ")
+            "WHERE s.data >= :data " +
+            "ORDER BY s.data ASC" )
     List<Sessao> findAllRegister(Date data);
 
     List<Sessao> findAllByOrderByDataAsc();
