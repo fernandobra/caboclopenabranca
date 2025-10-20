@@ -24,6 +24,7 @@ public class SecurityConfig {
                                 "/api/caboclopenabranca/password-recovery/request",
                                 "/api/caboclopenabranca/password-recovery/reset",
                                 "/api/caboclopenabranca/password-recovery/**",
+                                "/api/caboclopenabranca/noticias/**",
                                 "/api/caboclopenabranca/auth/refresh").permitAll()
                         .requestMatchers("/api/caboclopenabranca/pessoas/login/exists").permitAll()
                         .requestMatchers("/api/caboclopenabranca/pessoas/email/exists").permitAll()
