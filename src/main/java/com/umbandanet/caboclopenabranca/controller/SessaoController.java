@@ -18,7 +18,7 @@ public class SessaoController {
 
     @GetMapping
     public List<Sessao> getAllSessaos() {
-        return sessaoServices.findAll();
+        return sessaoServices.findAllRegister();
     }
 
     @GetMapping("/{id}")

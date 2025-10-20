@@ -6,6 +6,9 @@ import com.umbandanet.caboclopenabranca.service.SessaoServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +19,7 @@ public class SessaoServicesImpl implements SessaoServices {
 
     @Override
     public List<Sessao> findAll() {
-        return sessaoRepository.findAll();
+        return sessaoRepository.findAllByOrderByDataAsc();
     }
 
     @Override
@@ -34,4 +37,9 @@ public class SessaoServicesImpl implements SessaoServices {
         sessaoRepository.deleteById(id);
     }
 
+    @Override
+    public List<Sessao> findAllRegister() {
+        Date dataAtual = Date.valueOf(LocalDate.now(ZoneId.systemDefault()));
+        return sessaoRepository.findAllRegister(dataAtual);
+    }
 }
