@@ -117,61 +117,62 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <!--				<configuration>-->
-                <!--					<source>${java.version}</source>-->
-                <!--					<target>${java.version}</target>-->
-                <!--					<annotationProcessorPaths>-->
-                <!--						<path>-->
-                <!--							<groupId>org.projectlombok</groupId>-->
-                <!--							<artifactId>lombok</artifactId>-->
-                <!--							<version>1.18.36</version>-->
-                <!--						</path>-->
-                <!--					</annotationProcessorPaths>-->
-                <!--				</configuration>-->
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.36</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--				<configuration>-->
-                <!--					<mainClass>com.umbandanet.caboclopenabranca.CaboclopenabrancaApplication</mainClass>-->
-                <!--					<excludes>-->
-                <!--						<exclude>-->
-                <!--							<groupId>org.projectlombok</groupId>-->
-                <!--							<artifactId>lombok</artifactId>-->
-                <!--						</exclude>-->
-                <!--					</excludes>-->
-                <!--					<profiles>local</profiles>-->
-                <!--				</configuration>-->
+                <configuration>
+                    <mainClass>com.umbandanet.caboclopenabranca.CaboclopenabrancaApplication</mainClass>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                    <profiles>local</profiles>
+                </configuration>
             </plugin>
-            <!--			<plugin>-->
-            <!--				<groupId>org.springframework.boot</groupId>-->
-            <!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--			</plugin>-->
-            <!--			<plugin>-->
-            <!--				<groupId>org.codehaus.cargo</groupId>-->
-            <!--				<artifactId>cargo-maven3-plugin</artifactId>-->
-            <!--				<version>1.9.9</version>-->
-            <!--				<configuration>-->
-            <!--					<container>-->
-            <!--						<containerId>tomcat10x</containerId>-->
-            <!--&lt;!&ndash;						<home>${project.basedir}/src/main/resources/jetty</home>&ndash;&gt;-->
-            <!--						<type>remote</type>-->
-            <!--					</container>-->
-            <!--					<configuration>-->
-            <!--						<type>runtime</type>-->
-            <!--						<properties>-->
-            <!--							<cargo.hostname>ferna5184.c34.integrator.host</cargo.hostname>-->
-            <!--							<cargo.servelet.port>443</cargo.servelet.port>-->
-            <!--							<cargo.protocol>http</cargo.protocol>-->
-            <!--							<cargo.tomcat.manager.url>http://15.235.55.109:20221/manager/html</cargo.tomcat.manager.url>-->
-            <!--							&lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
-            <!--							<cargo.remote.username>${env.SERVER_USERNAME}</cargo.remote.username>-->
-            <!--							&lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
-            <!--							<cargo.remote.password>${env.SERVER_PASSWORD}</cargo.remote.password>-->
-            <!--						</properties>-->
-            <!--					</configuration>-->
-            <!--				</configuration>-->
-            <!--			</plugin>-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven3-plugin</artifactId>
+                <version>1.9.9</version>
+                <configuration>
+                    <container>
+                        <containerId>tomcat10x</containerId>
+<!--						<home>${project.basedir}/src/main/resources/jetty</home>-->
+                        <type>remote</type>
+                    </container>
+                    <configuration>
+                        <type>runtime</type>
+                        <properties>
+                            <cargo.hostname>ferna5184.c34.integrator.host</cargo.hostname>
+                            <cargo.servelet.port>443</cargo.servelet.port>
+                            <cargo.protocol>http</cargo.protocol>
+                            <cargo.tomcat.manager.url>http://15.235.55.109:20221/manager/html</cargo.tomcat.manager.url>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <cargo.remote.username>${env.SERVER_USERNAME}</cargo.remote.username>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <cargo.remote.password>${env.SERVER_PASSWORD}</cargo.remote.password>
+                        </properties>
+                    </configuration>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
