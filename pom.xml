@@ -148,10 +148,10 @@
 <!--                    <profiles>local</profiles>-->
 <!--                </configuration>-->
 <!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
 <!--            <plugin>-->
 <!--                <groupId>org.codehaus.cargo</groupId>-->
 <!--                <artifactId>cargo-maven3-plugin</artifactId>-->
