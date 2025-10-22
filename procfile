@@ -1,0 +1,1 @@
+web: java -jar target/caboclopenabranca-0.0.3.jar
