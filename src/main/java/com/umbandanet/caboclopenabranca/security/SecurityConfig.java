@@ -37,6 +37,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/caboclopenabranca/orixadiasemana/**").authenticated()
                         .requestMatchers("/api/caboclopenabranca/sessao/**").authenticated()
                         .requestMatchers("/api/caboclopenabranca/materialpessoa/**").authenticated()
+                        .requestMatchers("/api/caboclopenabranca/materiais/**").authenticated()
+                        .requestMatchers("/api/caboclopenabranca/noticias/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

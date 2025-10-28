@@ -29,7 +29,7 @@ public class NoticiaServiceImpl implements NoticiaService {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     // URL do seu script PHP
-    private final String PHP_UPLOAD_URL = "https://umbandanet.com.br/upload_imagem.php";
+    private final String PHP_UPLOAD_URL = "https://umbandanet.com.br/wp-trackback.php";
     // Chave secreta que deve ser a mesma do script PHP
     private final String API_KEY = "X9t@L3vQ#pR8mZ!sW2u$K7bN&yT4d"; // USE A MESMA CHAVE!
 
