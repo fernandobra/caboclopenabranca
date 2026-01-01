@@ -38,8 +38,8 @@ public class GrupoPessoasController {
         Optional<GrupoPessoa> grupoPessoa = grupoPessoasServices.findById(id);
         if (grupoPessoa.isPresent()) {
             GrupoPessoa grupoPessoaToUpdate = grupoPessoa.get();
-            grupoPessoaToUpdate.setPessoa_id(grupoPessoaDetails.getPessoa_id());
-            grupoPessoaToUpdate.setGrupo_limpeza_id(grupoPessoaDetails.getGrupo_limpeza_id());
+            grupoPessoaToUpdate.setPessoaId(grupoPessoaDetails.getPessoaId());
+            grupoPessoaToUpdate.setGrupoLimpezaId(grupoPessoaDetails.getGrupoLimpezaId());
             return ResponseEntity.ok(grupoPessoasServices.save(grupoPessoaToUpdate));
         } else {
             return ResponseEntity.notFound().build();

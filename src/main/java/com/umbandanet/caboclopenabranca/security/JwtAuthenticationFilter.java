@@ -4,6 +4,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -14,28 +16,34 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authorizationHeader = request.getHeader("Authorization");
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-        System.out.println("AuthorizationHeader recebido - doFilterInternal: " + authorizationHeader);
+        String authorizationHeader = request.getHeader("Authorization");
+        logger.debug("AuthorizationHeader: {}", authorizationHeader);
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);
-
-            System.out.println("Token recebido - doFilterInternal: " + token);
-            String username = JwtUtil.validateToken(token);
+            String username;
+            try {
+                username = JwtUtil.validateToken(token);
+            } catch (Exception ex) {
+                logger.warn("Token inválido ou expirado: {}", ex.getMessage());
+                // não interrompe requisição; deixa a cadeia decidir (endpoints permitAll permanecerão acessíveis)
+                filterChain.doFilter(request, response);
+                return;
+            }
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                // Cria um UserDetails fictício (ou busque do banco se necessário)
                 UserDetails userDetails = User.withUsername(username).password("").authorities(Collections.emptyList()).build();
-
-                // Configura o SecurityContext com a autenticação
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            } else if (username == null) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                return;
             }
         }
 

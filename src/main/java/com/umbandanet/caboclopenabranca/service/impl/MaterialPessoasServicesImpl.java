@@ -27,6 +27,9 @@ public class MaterialPessoasServicesImpl implements MaterialPessoasServices {
 
     @Override
     public MaterialPessoa save(MaterialPessoa materialPessoa) {
+        if(materialPessoa.getId() == 0) {
+            materialPessoa.setId(null);
+        }
         return materialPessoasRepository.save(materialPessoa);
     }
 

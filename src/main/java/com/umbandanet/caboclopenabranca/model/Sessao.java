@@ -18,7 +18,7 @@ public class Sessao {
     private String orixa;
     private String entidade;
     private String dia;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private java.sql.Date data;
     private String hora;
 }

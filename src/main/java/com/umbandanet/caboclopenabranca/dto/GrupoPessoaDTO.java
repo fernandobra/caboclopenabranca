@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GrupoPessoaDTO {
+    private Long id;
     private String nome;
     private String grupo;
 }

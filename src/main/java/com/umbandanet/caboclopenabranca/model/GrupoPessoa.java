@@ -10,7 +10,8 @@ public class GrupoPessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long pessoa_id;
+    @Column(name = "pessoa_id")
+    private Long pessoaId;
     @Column(name = "grupo_limpeza_id")
-    private Long grupo_limpeza_id;
+    private Long grupoLimpezaId;
 }

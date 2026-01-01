@@ -33,6 +33,7 @@ public class GrupoPessoasServicesImpl implements GrupoPessoasServices {
 
     @Override
     public GrupoPessoa save(GrupoPessoa grupoPessoa) {
+        if(grupoPessoa.getId() == 0L ){ grupoPessoa.setId(null);}
         return grupoPessoasRepository.save(grupoPessoa);
     }
 

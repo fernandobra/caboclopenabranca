@@ -30,6 +30,10 @@ public class GrupoLimpezaController {
     
     @PostMapping
     public GrupoLimpeza postGrupoLimpeza(@RequestBody GrupoLimpeza grupoLimpeza) {
+        if(grupoLimpeza.getId() <= 0){
+            // Garantir que o ID seja nulo para criação
+            grupoLimpeza.setId(null);
+        }
         return grupoLimpezaServices.save(grupoLimpeza);
     }
 
