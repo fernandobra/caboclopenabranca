@@ -3,7 +3,6 @@ package com.umbandanet.caboclopenabranca.controller;
 import com.umbandanet.caboclopenabranca.dto.OtpVerificationRequest;
 import com.umbandanet.caboclopenabranca.dto.PasswordRecoveryRequest;
 import com.umbandanet.caboclopenabranca.model.PasswordRecoveryOtp;
-import com.umbandanet.caboclopenabranca.model.Pessoas;
 import com.umbandanet.caboclopenabranca.service.PasswordRecoveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,13 +34,14 @@ public class PasswordRecoveryController {
 
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOtp(@RequestBody OtpVerificationRequest request) {
-        PasswordRecoveryOtp otp = passwordRecoveryService.verifyOtp(request.getEmail(), request.getOtp_code());
-        if (otp != null && (otp.getUsed() == null || !otp.getUsed()) && otp.getExpiresAt().isAfter(LocalDateTime.now())) {
-            otp.setUsed(true);
-            passwordRecoveryService.save(otp);
-            return ResponseEntity.ok("Sucesso.");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Código inválido ou expirado.");
+        return Optional.ofNullable(passwordRecoveryService.verifyOtp(request.getEmail(), request.getOtp_code()))
+                .filter(otp -> (otp.getUsed() == null || !otp.getUsed()) && otp.getExpiresAt().isAfter(LocalDateTime.now()))
+                .map(otp -> {
+                    otp.setUsed(true);
+                    passwordRecoveryService.save(otp);
+                    return ResponseEntity.ok("Sucesso.");
+                })
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Código inválido ou expirado."));
     }
 
     @PostMapping

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.umbandanet.caboclopenabranca.dto.LoginRequest;
+import com.umbandanet.caboclopenabranca.dto.PasswordRequest;
 import com.umbandanet.caboclopenabranca.dto.PessoaAniversarioDTO;
 import com.umbandanet.caboclopenabranca.security.JwtUtil;
 import com.umbandanet.caboclopenabranca.util.CryptoUtil;
@@ -129,5 +130,25 @@ public class PessoasController {
         boolean isValid = pessoasServices.existsByEmail(email);
         return ResponseEntity.ok(isValid);
     }
-}
 
+    @PutMapping("/{id}/alterar-senha")
+    public ResponseEntity<String> alterarSenha(@PathVariable Long id, @RequestBody PasswordRequest passwordRequest ) throws Exception {
+        log.info("passwordOld -> passwordRequest -> getOldPassword: " + passwordRequest.getOldPassword());
+        log.info("passwordNew -> passwordRequest -> getNewPassword: " + passwordRequest.getNewPassword());
+
+        // Descriptografando antes para evitar a necessidade de blocos try/catch dentro da função lambda
+        String senhaAntiga = CryptoUtil.decrypt(passwordRequest.getOldPassword(), passwordRequest.getInformationFrontend().trim());
+        String senhaNova = CryptoUtil.decrypt(passwordRequest.getNewPassword(), passwordRequest.getInformationFrontend().trim());
+
+        return pessoasServices.findById(id)
+                .filter(pessoa -> pessoa.getSenha().trim().equals(senhaAntiga))
+                .map(pessoaToUpdate -> {
+                    // Corrigido para salvar a NOVA senha, e não a antiga
+                    pessoaToUpdate.setSenha(senhaNova);
+                    pessoasServices.save(pessoaToUpdate);
+                    
+                    return ResponseEntity.ok("Senha alterada com sucesso.");
+                })
+                .orElseGet(() -> ResponseEntity.status(401).body("Credenciais inválidas ou usuário não encontrado"));
+    }
+}

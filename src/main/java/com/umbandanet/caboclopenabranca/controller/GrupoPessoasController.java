@@ -35,15 +35,13 @@ public class GrupoPessoasController {
 
     @PutMapping("/{id}")
     public ResponseEntity<GrupoPessoa> updateGrupoPessoas(@PathVariable Long id, @RequestBody GrupoPessoa grupoPessoaDetails) {
-        Optional<GrupoPessoa> grupoPessoa = grupoPessoasServices.findById(id);
-        if (grupoPessoa.isPresent()) {
-            GrupoPessoa grupoPessoaToUpdate = grupoPessoa.get();
-            grupoPessoaToUpdate.setPessoaId(grupoPessoaDetails.getPessoaId());
-            grupoPessoaToUpdate.setGrupoLimpezaId(grupoPessoaDetails.getGrupoLimpezaId());
-            return ResponseEntity.ok(grupoPessoasServices.save(grupoPessoaToUpdate));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return grupoPessoasServices.findById(id)
+                .map(grupoPessoaToUpdate -> {
+                    grupoPessoaToUpdate.setPessoaId(grupoPessoaDetails.getPessoaId());
+                    grupoPessoaToUpdate.setGrupoLimpezaId(grupoPessoaDetails.getGrupoLimpezaId());
+                    return ResponseEntity.ok(grupoPessoasServices.save(grupoPessoaToUpdate));
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
@@ -57,4 +55,3 @@ public class GrupoPessoasController {
         return grupoPessoasServices.findGrupoPessoas();
     }
 }
-
