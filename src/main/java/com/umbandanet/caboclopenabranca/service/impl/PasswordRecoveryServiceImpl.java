@@ -83,25 +83,23 @@ public class PasswordRecoveryServiceImpl implements PasswordRecoveryService {
     @Transactional
     @Override
     public void save(PasswordRecoveryOtp otpParmeter) {
-        if(otpParmeter.getId() == null) {
-            otpParmeter.setId(0L);
+        if (otpParmeter.getId() != null) {
+            Optional<PasswordRecoveryOtp> existingOtp = passwordRecoveryOtpRepository.findById(otpParmeter.getId());
+            if (existingOtp.isPresent()) {
+                PasswordRecoveryOtp otp = existingOtp.get();
+                otp.setOtpCode(otpParmeter.getOtpCode());
+                otp.setExpiresAt(otpParmeter.getExpiresAt() != null ? otpParmeter.getExpiresAt() : LocalDateTime.now());
+                otp.setEmail(otpParmeter.getEmail());
+                passwordRecoveryOtpRepository.save(otp);
+                return;
+            }
         }
 
-        Optional<PasswordRecoveryOtp> existingOtp = passwordRecoveryOtpRepository.findById(otpParmeter.getId());
-        if (existingOtp.isPresent()) {
-            // Atualize a entidade existente
-            PasswordRecoveryOtp otp = existingOtp.get();
-            otp.setOtpCode(otpParmeter.getOtpCode());
-            otp.setExpiresAt(LocalDateTime.now());
-            otp.setEmail(otpParmeter.getEmail());
-            passwordRecoveryOtpRepository.save(otp);
-        } else {
-            // Crie uma nova entidade
-            PasswordRecoveryOtp newOtp = new PasswordRecoveryOtp();
-            newOtp.setEmail(otpParmeter.getEmail());
-            newOtp.setOtpCode(otpParmeter.getOtpCode());
-            newOtp.setExpiresAt(otpParmeter.getExpiresAt());
-            passwordRecoveryOtpRepository.save(newOtp);
-        }
+        // Criar nova entidade quando id for nulo ou não existir
+        PasswordRecoveryOtp newOtp = new PasswordRecoveryOtp();
+        newOtp.setEmail(otpParmeter.getEmail());
+        newOtp.setOtpCode(otpParmeter.getOtpCode());
+        newOtp.setExpiresAt(otpParmeter.getExpiresAt() != null ? otpParmeter.getExpiresAt() : LocalDateTime.now().plusMinutes(2));
+        passwordRecoveryOtpRepository.save(newOtp);
     }
 }

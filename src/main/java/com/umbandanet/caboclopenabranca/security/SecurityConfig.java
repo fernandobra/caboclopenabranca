@@ -27,6 +27,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         // ajustar endpoints públicos conforme necessário
                         .requestMatchers(HttpMethod.POST, "/api/caboclopenabranca/pessoas/login").permitAll()
+                        // permitir endpoints de recuperação de senha sem autenticação
+                        .requestMatchers("/api/caboclopenabranca/password-recovery/**").permitAll()
+                        // permitir leitura pública de notícias (opcional)
+                        //.requestMatchers(HttpMethod.GET, "/api/caboclopenabranca/noticias/**").permitAll()
                         .requestMatchers("/api/caboclopenabranca/**").authenticated()
                         .anyRequest().authenticated()
                 )

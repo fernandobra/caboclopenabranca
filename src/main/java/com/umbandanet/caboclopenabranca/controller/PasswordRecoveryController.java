@@ -23,7 +23,8 @@ public class PasswordRecoveryController {
     @PostMapping("/request")
     public ResponseEntity<String> requestPasswordRecovery(@RequestBody PasswordRecoveryRequest request) {
         String token = passwordRecoveryService.initiatePasswordRecovery(request.getEmail());
-        return ResponseEntity.ok("Token");
+        // retorna o código/OTP gerado (ou mensagem genérica em produção)
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/reset")
