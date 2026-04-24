@@ -7,6 +7,8 @@ import com.umbandanet.caboclopenabranca.service.PasswordRecoveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -17,12 +19,16 @@ import java.util.Optional;
 @RequestMapping("/api/caboclopenabranca/password-recovery")
 public class PasswordRecoveryController {
 
+    private static final Logger logger = LoggerFactory.getLogger(PasswordRecoveryController.class);
+
     @Autowired
     private PasswordRecoveryService passwordRecoveryService;
 
     @PostMapping("/request")
     public ResponseEntity<String> requestPasswordRecovery(@RequestBody PasswordRecoveryRequest request) {
+        logger.info("Password recovery request received for email={}", request.getEmail());
         String token = passwordRecoveryService.initiatePasswordRecovery(request.getEmail());
+        logger.debug("Generated OTP for {}: {}", request.getEmail(), token);
         // retorna o código/OTP gerado (ou mensagem genérica em produção)
         return ResponseEntity.ok(token);
     }
