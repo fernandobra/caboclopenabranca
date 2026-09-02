@@ -2,8 +2,10 @@ package com.umbandanet.caboclopenabranca.repository;
 
 import com.umbandanet.caboclopenabranca.dto.MaterialPessoaDTO;
 import com.umbandanet.caboclopenabranca.model.MaterialPessoa;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +18,8 @@ public interface MaterialPessoasRepository extends JpaRepository<MaterialPessoa,
             "LEFT JOIN pessoa p ON mp.pessoa_id = p.id " +
             "ORDER BY m.item ASC ",  nativeQuery = true)
     List<MaterialPessoaDTO> findMaterialPessoas();
+
+    @Modifying
+    @Query(value = "DELETE FROM material_pessoa WHERE material_id = :materialId", nativeQuery = true)
+    void deleteByMaterialId(@Param("materialId") Long materialId);
 }

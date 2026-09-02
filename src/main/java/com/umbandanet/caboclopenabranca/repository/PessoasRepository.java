@@ -48,4 +48,6 @@ public interface PessoasRepository extends JpaRepository<Pessoas, Long> {
             "FROM Pessoas p " +
             "WHERE p.token = :token ")
     Optional<Pessoas> findByToken(String token);
+
+    long countByIdIn(List<Long> ids);
 }

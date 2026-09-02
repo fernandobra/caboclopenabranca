@@ -1,9 +1,11 @@
 package com.umbandanet.caboclopenabranca.controller;
 
 import com.umbandanet.caboclopenabranca.dto.MaterialPessoaDTO;
+import com.umbandanet.caboclopenabranca.dto.MaterialPessoaLoteRequestDTO;
 import com.umbandanet.caboclopenabranca.model.MaterialPessoa;
 import com.umbandanet.caboclopenabranca.service.MaterialPessoasServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +34,15 @@ public class MaterialPessoasController {
         return ResponseEntity.ok(materialPessoasServices.save(materialPessoa));
     }
 
+    @PostMapping("/lote")
+    public ResponseEntity<?> postMaterialPessoasLote(@RequestBody MaterialPessoaLoteRequestDTO request) {
+        try {
+            return ResponseEntity.ok(materialPessoasServices.saveLote(request));
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<MaterialPessoa> updateMaterialPessoas(@PathVariable Long id, @RequestBody MaterialPessoa materialPessoaDetails) {
         Optional<MaterialPessoa> materialPessoa = materialPessoasServices.findById(id);
@@ -56,4 +67,3 @@ public class MaterialPessoasController {
         return materialPessoasServices.findMaterialPessoas();
     }
 }
-
